@@ -4,16 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import RecipeSearch from './RecipeSearch'
 import ImageStyle from "./ImageStyle";
-
+import FavoriteRecipes from './FavoriteRecipes'
 
 // Your Spoonacular API key
 const API_KEY = "819ed5d062a148c1a9e29bc625e8346d";
 
 function App() {
-  const [recipes, setRecipes] = useState([]); // State to store search results
-  const [favorites, setFavorites] = useState([]); // State to store favorite recipes
+  const [recipes, setRecipes] = useState([]); 
+  const [favorites, setFavorites] = useState([]); 
 
-  // Function to fetch recipes based on the ingredient
   async function getRecipe(ingredient) {
     const baseUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&query=${ingredient}`;
     
@@ -23,18 +22,20 @@ function App() {
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
-      setRecipes(data.results); // Update the recipe state
+      setRecipes(data.results); 
     } catch (error) {
       console.error("Failed to fetch recipes:", error);
     }
   }
 
-  // Function to add recipe to favorites
+ 
   const addFavorite = (recipe) => {
     if (!favorites.some((fav) => fav.id === recipe.id)) {
       setFavorites([...favorites, recipe]);
     }
   };
+
+  
 
   return (
     <>
@@ -61,20 +62,7 @@ function App() {
           )}
         </ul>
       </div>
-
-      {/* Display Favorites */}
-      <div>
-        <h2>Favorites</h2>
-        <ul>
-          {favorites.length > 0 ? (
-            favorites.map((favorite) => (
-              <li key={favorite.id}>{favorite.title}</li>
-            ))
-          ) : (
-            <p>No favorite recipes yet.</p>
-          )}
-        </ul>
-      </div>
+      <FavoriteRecipes favorites={favorites} setFavorites={setFavorites}/>
     </>
   );
 }

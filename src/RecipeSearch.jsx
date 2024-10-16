@@ -5,7 +5,7 @@ function RecipeSearch({ onSearch }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    onSearch(ingredient); // Make sure onSearch is called here
+    onSearch(ingredient); 
   };
 
   return (
