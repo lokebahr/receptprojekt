@@ -1,69 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import RecipeSearch from './RecipeSearch'
-import ImageStyle from "./ImageStyle";
-import FavoriteRecipes from './FavoriteRecipes'
+import React, { useState } from 'react';
+import RecipeSearch from './RecipeSearch';
+import NavBar from './Navbar';
+import { Outlet } from 'react-router-dom';
+import ImageStyle from './ImageStyle';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Toast from './Toast';
+import './App.css';
 
-// Your Spoonacular API key
-const API_KEY = "819ed5d062a148c1a9e29bc625e8346d";
 
 function App() {
-  const [recipes, setRecipes] = useState([]); 
-  const [favorites, setFavorites] = useState([]); 
+  const [recipes, setRecipes] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
-  async function getRecipe(ingredient) {
+  const getRecipe = async (ingredient) => {
+    const API_KEY = "819ed5d062a148c1a9e29bc625e8346d";
     const baseUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&query=${ingredient}`;
-    
+    console.log(ingredient);
     try {
       const response = await fetch(baseUrl);
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
-      setRecipes(data.results); 
+      setRecipes(data.results);
     } catch (error) {
       console.error("Failed to fetch recipes:", error);
     }
-  }
+  };
 
- 
+  const notify = (recipe, message) => toast(`${recipe.title} ${message}`);
+
   const addFavorite = (recipe) => {
     if (!favorites.some((fav) => fav.id === recipe.id)) {
       setFavorites([...favorites, recipe]);
+      console.log(`${recipe.title} was added to favorites`);
+      notify(recipe, "was added to Favorites");
     }
   };
 
-  
+  const viewMore = (recipe) => {
+    notify(recipe, "Will soon be able to be shown");
+  }
 
   return (
-    <>
-      
+    <div>
+    
+      <NavBar />
 
-      {/* Recipe Search Component */}
+     
       <RecipeSearch onSearch={getRecipe} />
 
-      {/* Display Search Results */}
+      
+      <Outlet context={{ favorites, setFavorites }} />
+
+      
       <div>
         <h2>Recipes</h2>
         <ul>
           {recipes.length > 0 ? (
             recipes.map((recipe) => (
-              <li key={recipe.id}>
-                {recipe.title}
-                <ImageStyle url ={recipe.image}/>
-                
-                <button onClick={() => addFavorite(recipe)}>Favorite</button>
+              <li key={recipe.id} className="recipe-card">
+                <div className="recipe-content">
+                  <div className="recipe-text">
+                    <h3>{recipe.title}</h3>
+
+                    <button onClick={() => addFavorite(recipe)}>Favorite</button>
+                    <button onClick={() => viewMore(recipe)}>View More</button>
+                  </div>
+                  <ImageStyle url={recipe.image} />
+                </div>
               </li>
+
             ))
           ) : (
             <p>No recipes found.</p>
           )}
         </ul>
       </div>
-      <FavoriteRecipes favorites={favorites} setFavorites={setFavorites}/>
-    </>
+      <Toast/>
+    </div>
   );
 }
 
