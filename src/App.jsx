@@ -8,11 +8,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import Toast from './Toast';
 import './App.css';
 import ViewMore from './ViewMore';
+import RecipeDetails from './RecipeDetails';
+import { useNavigate } from 'react-router-dom';
 
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [information, setInformation] = useState([]);
+
+  const navigate = useNavigate();
 
   const getRecipe = async (ingredient) => {
     const API_KEY = "819ed5d062a148c1a9e29bc625e8346d";
@@ -25,10 +30,13 @@ function App() {
       }
       const data = await response.json();
       setRecipes(data.results);
+      console.log(data.results);
     } catch (error) {
       console.error("Failed to fetch recipes:", error);
     }
   };
+
+  
 
   const notify = (recipe, message) => toast(`${recipe.title} ${message}`);
 
@@ -42,6 +50,7 @@ function App() {
 
   const viewMore = (recipe) => {
     notify(recipe, "Will soon be able to be shown");
+    navigate(`/recipes/${recipe.id}`);
     
     
   }
@@ -52,7 +61,14 @@ function App() {
       <NavBar />
 
       
-      <Outlet context={{ favorites, setFavorites, recipes, addFavorite, getRecipe, viewMore }} />
+      <Outlet context={{ favorites, 
+        setFavorites, 
+        recipes, 
+        addFavorite, 
+        getRecipe, 
+        viewMore, 
+        information,
+        setInformation}} />
 
       
       

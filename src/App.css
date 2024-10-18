@@ -98,3 +98,44 @@
   border-radius: 8px;
 }
 
+/* Remove bullet points and style the list */
+.ingredients-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ingredients-box {
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 60%; /* Adjust based on your page layout */
+  background-color: #1a1a1a;
+  border-radius: 10px;
+}
+
+/* Remove the list-style (bullet points) */
+.ingredients-box ul {
+  list-style: none; /* No bullet points */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allows for columns */
+}
+
+/* Styling individual list items */
+.ingredients-box li {
+  width: 50%; /* Two columns */
+  padding: 5px 0;
+}
+
+/* Optional: add some hover effects to list items */
+.ingredients-box li:hover {
+  background-color: #0056b3; /* Light background on hover */
+  border-radius: 5px;
+}
+
+ol {
+  padding-left: 1.5em; /* Adds space between the numbers and the left edge */
+  margin-top: 20px;    /* Adds space above the list */
+  margin-bottom: 20px; /* Adds space below the list */
+}
