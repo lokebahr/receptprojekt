@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
+
 function RecipeSearch({ onSearch }) {
   const [ingredient, setIngredient] = useState("");
-
+  
   const handleSearch = (e) => {
     e.preventDefault();
     onSearch(ingredient); 

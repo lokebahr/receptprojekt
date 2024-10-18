@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Toast from './Toast';
 import './App.css';
+import ViewMore from './ViewMore';
 
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
 
   const viewMore = (recipe) => {
     notify(recipe, "Will soon be able to be shown");
+    
+    
   }
 
   return (
@@ -48,36 +51,11 @@ function App() {
     
       <NavBar />
 
-     
-      <RecipeSearch onSearch={getRecipe} />
+      
+      <Outlet context={{ favorites, setFavorites, recipes, addFavorite, getRecipe, viewMore }} />
 
       
-      <Outlet context={{ favorites, setFavorites }} />
-
       
-      <div>
-        <h2>Recipes</h2>
-        <ul>
-          {recipes.length > 0 ? (
-            recipes.map((recipe) => (
-              <li key={recipe.id} className="recipe-card">
-                <div className="recipe-content">
-                  <div className="recipe-text">
-                    <h3>{recipe.title}</h3>
-
-                    <button onClick={() => addFavorite(recipe)}>Favorite</button>
-                    <button onClick={() => viewMore(recipe)}>View More</button>
-                  </div>
-                  <ImageStyle url={recipe.image} />
-                </div>
-              </li>
-
-            ))
-          ) : (
-            <p>No recipes found.</p>
-          )}
-        </ul>
-      </div>
       <Toast/>
     </div>
   );

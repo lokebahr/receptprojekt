@@ -6,7 +6,7 @@ function NavBar() {
     <nav>
       {/* Star icon for navigating to Favorite Recipes */}
       <NavLink to="/favorite-recipes">⭐ Favorites</NavLink>
-      <NavLink to ="/">🏠 Home</NavLink>
+      <NavLink to ="/home-page">🏠 Home</NavLink>
       
     </nav>
   );
