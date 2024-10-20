@@ -16,9 +16,12 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [information, setInformation] = useState([]);
+  const [found, setFound] = useState([]);
 
   const navigate = useNavigate();
 
+  
+  
   const getRecipe = async (ingredient) => {
     const API_KEY = "819ed5d062a148c1a9e29bc625e8346d";
     const baseUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&query=${ingredient}`;
@@ -49,7 +52,6 @@ function App() {
   };
 
   const viewMore = (recipe) => {
-    notify(recipe, "Will soon be able to be shown");
     navigate(`/recipes/${recipe.id}`);
     
     
@@ -68,7 +70,8 @@ function App() {
         getRecipe, 
         viewMore, 
         information,
-        setInformation}} />
+        setInformation,
+        found}} />
 
       
       
@@ -78,3 +81,4 @@ function App() {
 }
 
 export default App;
+

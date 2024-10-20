@@ -33,7 +33,7 @@ function HomePage() {
             </li>
           ))
         ) : (
-          <p>No recipes found.</p>
+          <p>No recipes found</p> 
         )}
       </ul>
     </div>

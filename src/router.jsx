@@ -3,6 +3,7 @@ import App from './App';
 import FavoriteRecipes from './FavoriteRecipes';
 import HomePage from './HomePage';
 import RecipeDetails from './RecipeDetails';
+import Home from './Home';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "recipes/:id",
         Component: RecipeDetails,
+      },
+      {
+        path: "/",
+        Component: Home,
       }
       
     ],
