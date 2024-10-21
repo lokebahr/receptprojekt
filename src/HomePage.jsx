@@ -30,6 +30,7 @@ function HomePage() {
                 </div>
                 <ImageStyle url={recipe.image} />
               </div>
+              
             </li>
           ))
         ) : (

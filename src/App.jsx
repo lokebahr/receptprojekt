@@ -16,7 +16,7 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [information, setInformation] = useState([]);
-  const [found, setFound] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const navigate = useNavigate();
 
@@ -39,6 +39,39 @@ function App() {
     }
   };
 
+  
+  const addToCart = (info) => {
+    const newCartItems = info.extendedIngredients.map(ingredient => ({
+      name: ingredient.name,
+      amount: ingredient.measures.metric.amount,
+      unit: ingredient.measures.metric.unitShort,
+      id: ingredient.id  
+    }));
+  
+    setCart((prevCart) => {
+      
+      const updatedCart = prevCart.map(cartItem => {
+        const existingItem = newCartItems.find(newItem => newItem.id === cartItem.id);
+        if (existingItem) {
+          
+          
+          return {
+            ...cartItem,
+            amount: cartItem.amount + existingItem.amount
+          };
+        }
+        return cartItem;
+      });
+  
+      notify(info, "was added to cart")
+      const newItems = newCartItems.filter(newItem => !prevCart.some(cartItem => cartItem.id === newItem.id));
+  
+     
+      return [...updatedCart, ...newItems];
+    });
+  };
+  
+  
   
 
   const notify = (recipe, message) => toast(`${recipe.title} ${message}`);
@@ -71,7 +104,9 @@ function App() {
         viewMore, 
         information,
         setInformation,
-        found}} />
+        setCart,
+        cart,
+        addToCart}} />
 
       
       

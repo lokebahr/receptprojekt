@@ -4,6 +4,7 @@ import FavoriteRecipes from './FavoriteRecipes';
 import HomePage from './HomePage';
 import RecipeDetails from './RecipeDetails';
 import Home from './Home';
+import ShoppingCart from './ShoppingCart';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+      },
+
+      {
+        path: "/shopping-cart",
+        Component: ShoppingCart,
       }
       
     ],

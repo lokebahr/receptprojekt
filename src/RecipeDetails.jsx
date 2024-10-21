@@ -1,10 +1,12 @@
 import { useParams } from 'react-router-dom';  // Import useParams
 import { useEffect, useState } from 'react';
 import ImageStyle from './ImageStyle';
+import { useOutletContext } from 'react-router-dom';
 
 function RecipeDetails() {
   const { id } = useParams();  
   const [information, setInformation] = useState(null);
+  const {addToCart} = useOutletContext(); 
 
  
 
@@ -23,33 +25,32 @@ function RecipeDetails() {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        setInformation(data);  // Set the detailed recipe information
+        setInformation(data);  
         console.log(information.winePairing);
       } catch (error) {
         console.error("Failed to fetch recipe information:", error);
       }
     };
 
-    getRecipeInstructions();  // Fetch the recipe instructions on component mount
+    getRecipeInstructions();  
   }, [id]);
 
   if (!information) {
-    return <p>Loading recipe details...</p>;  // Loading state
+    return <p>Loading recipe details...</p>;  
   }
   
   const cleanedString = information.instructions
-        .replace(/<\/?(ul|ol)>/g, '')    // Remove <ul> and <ol> tags
-        .replace(/<\/?li>/g, '\n');      // Replace <li> and </li> with newlines
+        .replace(/<\/?(ul|ol)>/g, '')    
+        .replace(/<\/?li>/g, '\n');      
 
-    // Split the string into an array of instructions based on newlines, removing empty items
+    
     const instructionArray = cleanedString.split('\n').filter(item => item.trim() !== '');
   
     const removeLinksFromSummary = (summary) => {
-        // Option 1: Completely remove <a> tags and replace them with plain text
+        
         return summary.replace(/<a[^>]*>([^<]+)<\/a>/g, '$1'); 
     
-        // Option 2: Alternatively, if you want to keep the text but disable the links,
-        // return summary.replace(/<a\b[^>]*>(.*?)<\/a>/g, '<span>$1</span>');
+        
       };
 
 
@@ -71,6 +72,7 @@ function RecipeDetails() {
                 {ingredient.name}: {ingredient.measures.metric.amount} {ingredient.measures.metric.unitShort}
               </li>
             ))}
+            <button onClick = {() => addToCart(information)}>Add to cart</button>
           </ul>
         </div>
       </div>
@@ -78,7 +80,7 @@ function RecipeDetails() {
       <h3>Instructions</h3> 
       <ol>
             {instructionArray.map((instruction, index) => (
-                <li key={index}>{instruction}</li>  // Render each instruction as an ordered list item
+                <li key={index}>{instruction}</li>  
             ))}
         </ol>
 
