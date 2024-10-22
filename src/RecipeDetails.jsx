@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';  // Import useParams
+import { useParams } from 'react-router-dom';  
 import { useEffect, useState } from 'react';
 import ImageStyle from './ImageStyle';
 import { useOutletContext } from 'react-router-dom';

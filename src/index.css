@@ -68,20 +68,20 @@ button:focus-visible {
 }
 
 ol {
-  list-style-position: inside;   /* Make sure the numbers are inside the list box */
-  padding-left: 1.2em;           /* Adjust padding so numbers align properly */
-  margin-top: 20px;              /* Add some spacing above the list */
-  margin-bottom: 20px;           /* Add some spacing below the list */
+  list-style-position: inside;   
+  padding-left: 1.2em;           
+  margin-top: 20px;              
+  margin-bottom: 20px;           
 }
 
 li {
-  margin-bottom: 15px;           /* Add space between list items */
-  font-size: 1.1em;              /* Make the text slightly larger for readability */
-  line-height: 1.5;              /* Set comfortable line height */
-  text-align: left;              /* Ensure the text is aligned to the left */
+  margin-bottom: 15px;           
+  font-size: 1.1em;              
+  line-height: 1.5;              
+  text-align: left;              
 }
 
 li::marker {
-  font-size: 1.1em;              /* Make the list numbers the same size as the text */
-  font-weight: bold;             /* Bold the numbers to make them more prominent */
+  font-size: 1.1em;              
+  font-weight: bold;             
 }
